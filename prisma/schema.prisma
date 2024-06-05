@@ -22,4 +22,18 @@ model Product {
   rating String
   status String
   quantity Int
+  user User[]
+}
+
+model User {
+  id Int @id @default(autoincrement())
+  username String @unique
+  email String
+  password String
+  phoneNumber String
+  address String
+  authed Boolean @default(true)
+  productId Int?
+  product Product? @relation(fields: [productId], references: [id])
+
 }
