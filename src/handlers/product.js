@@ -1,7 +1,6 @@
 // Layered for handle validation
 const express = require('express')
 const router = express.Router()
-const prisma  = require('../db')
 const ProductService  = require('../services/product')
 
 router.get('/', async(req, res) => {
