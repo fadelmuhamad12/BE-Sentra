@@ -8,10 +8,10 @@ const create = async (newProduct) => {
       name: newProduct.name,
       image: newProduct.image,
       description: newProduct.description,
-      price: newProduct.price,
+      price: parseInt(newProduct.price),
       rating: newProduct.rating,
       status: newProduct.status,
-      quantity: newProduct.quantity
+      quantity: parseInt(newProduct.quantity)
     }
   })
 
@@ -47,10 +47,10 @@ const updatedBy = async (payload, options) => {
      name: payload.name,
      image: payload.image,
      description: payload. description,
-     price: payload.price,
+     price: parseInt(payload.price),
      rating: payload.rating,
      status: payload.status,
-     quantity: payload.quantity 
+     quantity: parseInt(payload.quantity)
    }, 
     where: opts.where
   })
