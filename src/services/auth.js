@@ -4,7 +4,7 @@ const { hashSync, compareSync } = require('bcrypt');
 const prisma = require("../db");
 
 const signup = async (req, res) => {
-  const { email, password, username, phoneNumber, address } = req.body;
+  const { email, password, username, phoneNumber, address, role } = req.body;
 
   try {
     const user = await prisma.user.findFirst({ where: { email } });
@@ -20,6 +20,7 @@ const signup = async (req, res) => {
         password: hashSync(password, 10),
         phoneNumber,
         address,
+        role
       },
     });
 
@@ -52,7 +53,8 @@ const login = async (req, res) => {
       userId: user.id,
       username: user.username,
       address: user.address,
-      authed: user.authed
+      authed: user.authed,
+      role: user.role
     },
     JWT_SECRET
   );
