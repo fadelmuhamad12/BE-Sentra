@@ -70,11 +70,36 @@ const deletedBy = async (options) => {
   return products
 }
 
+const payment = async (items) => {
+  for (const item of items) {
+    const product = await prisma.product.findUnique({
+      where: { id: item.id },
+    });
+
+    if (product && product.quantity >= item.quantity) {
+      const newQuantity = product.quantity - item.quantity;
+      const newStatus = newQuantity === 0 ? 'soldout' : product.status;
+
+
+      await prisma.product.update({
+        where: { id: item.id },
+        data: { 
+          quantity: newQuantity,
+          status: newStatus
+        },
+      });
+    } else {
+      throw new Error(`Product Sold`);
+    }
+  }
+};
+
 
 module.exports ={
   getBy,
   getOneById,
   updatedBy,
   deletedBy,
-  create
+  create,
+  payment
 }

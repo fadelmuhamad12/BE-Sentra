@@ -80,4 +80,23 @@ router.delete('/:id', async(req, res) => {
 })
 
 
+router.post('/payment', async (req, res) => {
+  const { items } = req.body;
+  try {
+    await ProductService.payment(items);
+    res.send({
+      code: '200',
+      status: 'OK',
+      message: 'Quantities updated successfully'
+    });
+  } catch (error) {
+    res.status(400).send({
+      code: '400',
+      status: 'Error',
+      message: error.message
+    });
+  }
+});
+
+
 module.exports = router
